@@ -1,0 +1,62 @@
+CSJS — Component Licenses and Self-Hosting Terms
+
+Copyright (c) 2026 LK for the original CSJS integration code.
+
+1. Original CSJS integration code
+
+These terms apply to the original CSJS integration code in this repository
+that LK has the right to license, including the standalone website,
+browser launcher, server setup, and build scripts. Component licenses and
+file-specific license notices govern their respective material.
+
+Permission is granted, free of charge, to use, run, copy, modify, and share
+the original CSJS integration code, including to host your own
+Counter-Strike service, subject to the following conditions.
+
+- Provide this code and services that use it free of charge. Do not sell the
+  code or require payment, a purchase, or a paid membership to access the
+  service or any of its features.
+- When you redistribute the integration code or operate a service using it
+  that is available to others, make the complete, editable source of the
+  integration code you distribute or run, including your modifications and
+  the scripts needed to build and run it, available for anyone to download
+  without charge under these same terms. For a hosted service, link to that
+  source from the launcher or from a credits page linked from it. Keep this
+  license and the applicable copyright and attribution notices with the source.
+- If you operate a service that uses this integration code and is available
+  to others, use your own service name, logo, and visual identity. Give visible
+  credit on the launcher or on a credits page linked from it. Credit CSJS and
+  LK and link to the original repository at https://github.com/lklacar/csjs-core.
+  For example, "Based on CSJS by LK," with "CSJS" linked to that repository.
+- The CSJS name, logo, and other project branding are reserved. This permission
+  allows their factual use in attribution and documentation. For use as your
+  own service branding, obtain separate written permission from the rights
+  holder. Do not imply that your service is official or endorsed by CSJS or
+  LK.
+
+The integration code is provided as is, without warranty of any kind. To the
+extent permitted by law, the authors and copyright holders are not liable for
+claims, damages, or other liability arising from the code or its use.
+
+2. Upstream components
+
+- game/engine/ contains Xash3D FWGS under GPL-3.0-or-later, with individual
+  bundled dependencies under their own terms.
+- game/cs16-client/ contains CS16Client under GPL-2.0-or-later with the
+  linking exception in game/cs16-client/LICENSE. Valve's Half-Life 1 SDK
+  terms for SDK material are in licenses/valve-hl1-sdk/LICENSE.
+- ReGameDLL_CS carries its MIT license. Other bundled components carry their
+  respective licenses and notices.
+
+The conditions in section 1 do not restrict the rights granted under the
+upstream licenses. Where a component license requires broader permissions
+for a work that combines the integration code with that component, you may
+redistribute the covered work under the applicable component license without
+the conflicting conditions, to the extent that license requires. This
+permission does not grant rights to the CSJS branding.
+
+3. Third-party game data
+
+These terms grant no rights to Counter-Strike or Half-Life game files,
+Valve trademarks, or other third-party assets. Obtain your game files
+lawfully and follow the terms that apply to using and distributing them.

@@ -1,0 +1,5 @@
+packages:
+  - game/client
+  - website
+allowBuilds:
+  sharp: false

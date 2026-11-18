@@ -1,0 +1,123 @@
+diff --git a/amxmodx/amxmodx.cpp b/amxmodx/amxmodx.cpp
+index b73858b..d526338 100755
+--- a/amxmodx/amxmodx.cpp
++++ b/amxmodx/amxmodx.cpp
+@@ -19,6 +19,7 @@
+ #include "CFlagManager.h"
+ #include "nongpl_matches.h"
+ #include "format.h"
++#include "csjs_ip_address.h"
+ 
+ extern CFlagManager FlagMan;
+ ke::Vector<CAdminData *> DynamicAdmins;
+@@ -1117,14 +1118,10 @@ static cell AMX_NATIVE_CALL get_user_origin(AMX *amx, cell *params) /* 3 param *
+ static cell AMX_NATIVE_CALL get_user_ip(AMX *amx, cell *params) /* 3 param */
+ {
+ 	int index = params[1];
+-	char *ptr;
+-	char szIp[32];
+-	strcpy(szIp, (index < 1 || index > gpGlobals->maxClients) ? CVAR_GET_STRING("net_address") : g_players[index].ip.chars());
++	char szIp[CSJS_IP_ADDRESS_SIZE];
++	ke::SafeStrcpy(szIp, sizeof(szIp), (index < 1 || index > gpGlobals->maxClients) ? CVAR_GET_STRING("net_address") : g_players[index].ip.chars());
+ 
+-	if (params[4] && (ptr = strstr(szIp, ":")) != 0)
+-		*ptr = '\0';
+-
+-	return set_amxstring(amx, params[2], szIp, params[3]);
++	return set_amxstring(amx, params[2], params[4] ? CSJS_StripAddressPort(szIp) : szIp, params[3]);
+ }
+ 
+ static cell AMX_NATIVE_CALL get_user_attacker(AMX *amx, cell *params) /* 2 param */
+diff --git a/amxmodx/meta_api.cpp b/amxmodx/meta_api.cpp
+index ffc0742..a5d8069 100755
+--- a/amxmodx/meta_api.cpp
++++ b/amxmodx/meta_api.cpp
+@@ -960,7 +960,7 @@ CPlayer* SV_DropClient_PreHook(edict_s *client, qboolean crash, const char *buff
+ 		if (pPlayer->initialized)
+ 		{
+ 			pPlayer->disconnecting = true;
+-			executeForwards(FF_ClientDisconnected, pPlayer->index, TRUE, prepareCharArray(const_cast<char*>(buffer), buffer_size, true), buffer_size - 1);
++			executeForwards(FF_ClientDisconnected, pPlayer->index, TRUE, prepareCharArray(const_cast<char*>(buffer), buffer_size, false), buffer_size - 1);
+ 		}
+ 	}
+ 
+@@ -981,7 +981,9 @@ DETOUR_DECL_STATIC2(SV_DropClient, void, client_t*, cl, qboolean, crash)
+ {
+ 	const char *buffer = crash ? "Connection problem" : "Disconnected";
+ 	
+-	auto pPlayer = SV_DropClient_PreHook(cl->edict, crash, buffer, strlen(buffer) + 1);
++	// Current linux-i386 Xash layout; asserted by the engine build.
++	auto edict = *reinterpret_cast<edict_t **>(reinterpret_cast<char *>(cl) + 0x64b40);
++	auto pPlayer = SV_DropClient_PreHook(edict, crash, buffer, strlen(buffer) + 1);
+ 	DETOUR_STATIC_CALL(SV_DropClient)(cl, crash);
+ 	SV_DropClient_PostHook(pPlayer, crash, buffer);
+ }
+diff --git a/modules/geoip/geoip_util.cpp b/modules/geoip/geoip_util.cpp
+index 794eb4c..e2fd9fa 100644
+--- a/modules/geoip/geoip_util.cpp
++++ b/modules/geoip/geoip_util.cpp
+@@ -14,6 +14,7 @@
+ #include "geoip_util.h"
+ #include "geoip_natives.h"
+ #include <amtl/am-algorithm.h>
++#include "csjs_ip_address.h"
+ 
+ const char GeoIPCountryCode[252][3] =
+ {
+@@ -77,14 +78,7 @@ const char GeoIPCountryCode3[252][4] =
+ 
+ char *stripPort(char *ip)
+ {
+-	char *tmp = strchr(ip, ':');
+-
+-	if (tmp)
+-	{
+-		*tmp = '\0';
+-	}
+-
+-	return ip;
++	return CSJS_StripAddressPort(ip);
+ }
+ 
+ const char* stristr(const char* str, const char* substr)
+diff --git a/public/csjs_ip_address.h b/public/csjs_ip_address.h
+new file mode 100644
+index 0000000..8f34959
+--- /dev/null
++++ b/public/csjs_ip_address.h
+@@ -0,0 +1,35 @@
++#ifndef CSJS_IP_ADDRESS_H
++#define CSJS_IP_ADDRESS_H
++
++#include <string.h>
++
++static const size_t CSJS_IP_ADDRESS_SIZE = 64;
++
++inline char *CSJS_StripAddressPort(char *address)
++{
++	char *port;
++	if (address[0] == '[')
++	{
++		port = strchr(address + 1, ']');
++		if (!port || (port[1] && port[1] != ':'))
++		{
++			return address;
++		}
++		++address;
++	}
++	else
++	{
++		port = strchr(address, ':');
++		if (port && strchr(port + 1, ':'))
++		{
++			return address;
++		}
++	}
++	if (port)
++	{
++		*port = '\0';
++	}
++	return address;
++}
++
++#endif

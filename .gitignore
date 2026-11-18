@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+game/dist/
+game/client/dist/
+website/public/game-data/
+*.tsbuildinfo
+next-env.d.ts
+.env*
+.DS_Store
+.idea/
+__pycache__/
+
+website/public/valve.zip
+server/local/

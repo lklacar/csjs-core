@@ -1,0 +1,6 @@
+title "Counter-Strike"
+gamedir "cstrike"
+basedir "valve"
+gamedll_linux "addons/metamod/dlls/metamod.so"
+startmap "de_dust2"
+max_edicts "2048"

@@ -1,0 +1,29 @@
+CSJS — Notices and Attributions
+
+Based on CSJS by LK.
+Original repository: https://github.com/lklacar/csjs-core
+
+CSJS uses a modified Xash3D FWGS engine and CS16Client, with ReGameDLL_CS for
+the dedicated server. See the license files in game/engine and game/cs16-client
+for the applicable GPL terms, CS16Client linking exception, MIT licensing, and
+individual third-party notices.
+
+Valve's Half-Life 1 SDK license is included at licenses/valve-hl1-sdk/LICENSE.
+The vendored CS16Client and vgui-dev notices retain older SDK wording.
+Valve corrected the reference to third_party_licenses.txt in May 2019.
+The corrected license requires SDK redistributions to include the LICENSE file.
+https://github.com/ValveSoftware/halflife/commit/c76dd531a79a176eef7cdbca5a80811123afbbe2
+
+The browser runtime includes the same file at licenses/valve-hl1-sdk/LICENSE
+inside extras.pk3. The server image includes it at
+/usr/share/licenses/valve-hl1-sdk/LICENSE.
+
+The dedicated server also uses Metamod-P and the Xash-compatible AMX Mod X
+fork. The pinned releases and source revisions are recorded in
+server/Dockerfile. The AMX Mod X core and GeoIP module are rebuilt with
+server/amxx-xash.patch. Each project retains its own license and notices.
+
+Counter-Strike, Half-Life, Steam, Valve, and related names and marks belong to
+Valve Corporation. CSJS is an independent project and is not endorsed by Valve
+or FWGS. Bring your own legally obtained Steam game files. They are not included
+in this repository.

@@ -1,0 +1,27 @@
+{
+  "name": "@csjs/client",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.2.2",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "../../scripts/build-client-package.sh",
+    "test": "pnpm build && node --experimental-test-module-mocks --test test/*.test.mjs",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@zip.js/zip.js": "^2.25.0"
+  }
+}

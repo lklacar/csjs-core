@@ -1,0 +1,133 @@
+:root {
+  color-scheme: dark;
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  background: #0f120f;
+  color: #deded7;
+  --accent: #c4b550;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.launcher {
+  width: min(100% - 2rem, 56rem);
+  margin-inline: auto;
+}
+
+.launcher-intro {
+  text-align: center;
+  padding-block: clamp(2.25rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.launcher-logo {
+  display: block;
+  width: clamp(5rem, 16vw, 7rem);
+  height: auto;
+  margin: 0 auto 1.5rem;
+}
+
+.launcher-intro h1 {
+  margin: 0;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", "Courier New", monospace;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+
+.launcher-intro p {
+  margin: .75rem 0 0;
+  color: #b2b7ad;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.launcher-form {
+  display: grid;
+  width: min(100%, 24rem);
+  margin-inline: auto;
+  gap: 1rem;
+  padding: 1.125rem;
+  border: 1px solid #2c312b;
+  background: #171a16;
+}
+
+.launcher-form label {
+  display: grid;
+  gap: .4rem;
+  color: #d7d8d0;
+  font: bold .875rem "Courier New", Courier, monospace;
+}
+
+.launcher-form :is(input, button) {
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: .55rem .75rem;
+  border: 1px solid #30352f;
+  border-radius: 0;
+  font: inherit;
+}
+
+.launcher-form input {
+  width: 100%;
+  background: #10130f;
+  color: #deded7;
+  font: .95rem Tahoma, Verdana, Arial, sans-serif;
+}
+
+.launcher-form button {
+  border-color: #4c5740;
+  margin-top: .25rem;
+  padding-inline: 1.25rem;
+  background: linear-gradient(135deg, #465239, #30382a);
+  color: #d7d8d0;
+  font: bold .875rem "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  cursor: pointer;
+}
+
+.launcher-form button:hover { filter: brightness(1.12); }
+.launcher-form button:active { transform: translateY(1px); }
+
+.game-page { position: fixed; inset: 0; background: #0e100d; }
+.game-page canvas { display: block; width: 100%; height: 100%; }
+.game-controls {
+  position: absolute;
+  inset: 1rem 1rem auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.game-controls p {
+  margin: 0;
+  padding: .55rem .75rem;
+  border-radius: .25rem;
+  background: #171914e8;
+}
+
+.game-controls button {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  margin-left: auto;
+  border: 1px solid #ffffff45;
+  border-radius: .3rem;
+  background: #10120ed9;
+  color: #f1f0e9;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.game-controls button:hover {
+  border-color: var(--accent);
+  background: #282d21;
+}

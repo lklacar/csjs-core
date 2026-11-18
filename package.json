@@ -1,0 +1,10 @@
+{
+  "name": "csjs-public",
+  "private": true,
+  "packageManager": "pnpm@11.2.2",
+  "scripts": {
+    "dev": "pnpm --filter @csjs/website dev",
+    "build": "pnpm --filter @csjs/website build",
+    "start": "pnpm --filter @csjs/website start"
+  }
+}

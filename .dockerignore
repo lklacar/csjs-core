@@ -1,0 +1,9 @@
+.git
+**/node_modules
+**/.next
+game/dist
+game/client/dist
+website/public/game-data
+
+website/public/valve.zip
+server/local/
